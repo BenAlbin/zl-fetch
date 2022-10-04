@@ -91,9 +91,7 @@ function createOutput ({ response, body, options }) {
 }
 
 function getHeaders (response) {
-  return response.headers.entries
-    ? getBrowserFetchHeaders(response)
-    : getNodeFetchHeaders(response)
+  return getBrowserFetchHeaders(response)
 }
 
 // window.fetch response headers contains entries method.
@@ -105,12 +103,3 @@ function getBrowserFetchHeaders (response) {
   return headers
 }
 
-// Node fetch response headers does not contain entries method.
-function getNodeFetchHeaders (response) {
-  const headers = {}
-  const h = response.headers._headers
-  for (const header in h) {
-    headers[header] = h[header].join('')
-  }
-  return headers
-}

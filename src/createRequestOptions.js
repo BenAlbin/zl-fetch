@@ -41,8 +41,7 @@ function setMethod (options) {
 }
 
 function setHeaders (options) {
-  const fetchHeaders = options.fetch.Headers
-  const headers = new fetchHeaders(options.headers)
+  const headers = new Headers(options.headers)
 
   // For preflight requests, we don't want to set headers.
   // This allows requests to remain simple.

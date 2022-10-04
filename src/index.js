@@ -32,8 +32,7 @@ for (const method of methods) {
 // Internal Functions
 // ========================
 async function fetchInstance (options) {
-  const fetch = await getFetch()
-  const requestOptions = createRequestOptions({ ...options, fetch })
+  const requestOptions = createRequestOptions(options)
 
   // Remove options that are not native to a fetch request
   delete requestOptions.fetch
@@ -42,8 +41,7 @@ async function fetchInstance (options) {
   delete requestOptions.returnError
 
   // Performs the fetch request
-  return fetch
-    .fetch(requestOptions.url, requestOptions)
+  return fetch(requestOptions.url, requestOptions)
     .then(response => handleResponse(response, options))
     .then(response => {
       if (!options.debug) return response
@@ -52,21 +50,7 @@ async function fetchInstance (options) {
     .catch(handleError)
 }
 
-// Normalizes between Browser and Node Fetch
-export async function getFetch () {
-  if (typeof fetch === 'undefined') {
-    const f = await import('node-fetch')
-    return {
-      fetch: f.default,
-      Headers: f.Headers
-    }
-  } else {
-    return {
-      fetch: window.fetch.bind(window),
-      Headers: window.Headers
-    }
-  }
-}
+
 
 function debugHeaders (requestOptions) {
   const clone = Object.assign({}, requestOptions)
