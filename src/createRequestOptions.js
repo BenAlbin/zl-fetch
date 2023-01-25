@@ -96,6 +96,9 @@ function setBody (options) {
   const method = options.method
   if (method === 'get') return
 
+  if (options.body instanceof FormData) {
+    return options.body
+  }
   // If the content type is not specified, we ignore the body field so we can return a simple request for preflight checks
   const contentType = options.headers.get('content-type')
   if (!contentType) return
