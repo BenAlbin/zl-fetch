@@ -49,7 +49,7 @@ function setHeaders (options) {
 
   // Set headers to Content-Type: application/json by default
   // We set this only for POST, PUT, PATCH, DELETE so GET requests can remain simple.
-  if (!headers.get('content-type') && options.method !== 'get') {
+  if (!headers.get('content-type') && !(options.body instanceof FormData) && options.method !== 'get') {
     headers.set('content-type', 'application/json')
   }
 
