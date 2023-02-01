@@ -32,8 +32,10 @@ function getResponseType (type) {
   if (type.includes('text')) return 'text'
   if (type.includes('blob')) return 'blob'
   if (type.includes('x-www-form-urlencoded')) return 'formData'
-  return "text"
-
+  if (type.includes("application/vnd.openxmlformats")) return "blob"
+  if (type.includes("application/vnd.ms-excel")) return "blob"
+  if (type.includes("application/vnd.oasis.opendocument.spreadsheet")) return "blob"
+  
   // Need to check for FormData, Blob and ArrayBuffer content types
   throw new Error(`zlFetch does not support content-type ${type} yet`)
 }
