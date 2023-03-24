@@ -41,6 +41,9 @@ function getResponseType (type) {
 }
 
 async function parseResponse (response, options) {
+  if (options.tpye === "null") {
+    return undefined
+  }
   // Parse formData into JavaScript object
   if (options.type === 'formData') {
     let body = await response.text()
