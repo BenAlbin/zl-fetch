@@ -41,7 +41,7 @@ function getResponseType (type) {
 }
 
 async function parseResponse (response, options) {
-  if (options.type === "null") {
+  if (options.type === null) {
     return createOutput({ response, body: undefined, options })
   }
   // Parse formData into JavaScript object
